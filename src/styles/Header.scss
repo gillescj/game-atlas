@@ -1,0 +1,16 @@
+.main-header {
+    background: rgba(0, 0, 0, 0.678);
+    padding: 4rem 0;
+    color: white;
+    display: grid;
+    .title {
+        justify-self: center;
+    }
+    .search-form-container {
+        justify-self: center;
+        .search input {
+            padding: 0.5rem;
+            font-size: 1.2rem;
+        }
+    }
+}

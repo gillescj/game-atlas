@@ -1,0 +1,18 @@
+.game-card {
+    img {
+        cursor: pointer;
+        max-width: 15rem;
+        box-shadow: 0px 10px 16px 0px rgba(0, 0, 0, 0.5);
+        &::after {
+            background: red;
+        }
+    }
+    img.placeholder-img {
+        max-height: 18rem;
+    }
+    &:hover {
+        transform: scale(1.05);
+        filter: brightness(70%);
+        transition: all 0.5s;
+    }
+}
