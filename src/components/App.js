@@ -1,3 +1,5 @@
+import '../styles/App.scss';
+
 import React from 'react';
 import igdb from '../apis/igdb';
 import Header from './Header';
