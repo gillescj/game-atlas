@@ -50,7 +50,8 @@
     }
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
+    // Desktops with mouse
     .game-card-container {
         .game-card {
             &:hover {
@@ -62,11 +63,13 @@
     }
 }
 
-@media (hover: none) {
+@media (hover: none) and (pointer: coarse) {
+    // Smartphones and touchscreens
     .game-card-container {
         .game-card {
             &:hover {
                 transform: scale(1);
+                filter: none;
                 transition: none;
             }
         }
