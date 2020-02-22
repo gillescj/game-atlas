@@ -6,7 +6,11 @@ const Footer = () => {
         <footer className="main-footer">
             <h3 className="attribution">
                 Made possible with{' '}
-                <a target="_blank" href="https://api-docs.igdb.com">
+                <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://api-docs.igdb.com"
+                >
                     IGDB
                 </a>
             </h3>

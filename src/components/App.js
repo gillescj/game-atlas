@@ -1,7 +1,7 @@
 import '../styles/App.scss';
 
 import React from 'react';
-import { HashRouter, BrowserRouter, Route } from 'react-router-dom';
+import { HashRouter, Route } from 'react-router-dom';
 import igdb from '../apis/igdb';
 import Header from './Header';
 import GameCardList from './GameCardList';
@@ -12,7 +12,6 @@ export default class App extends React.Component {
     state = { games: [], loading: false };
 
     componentDidMount() {
-        // this.onFormSubmit('witcher');
         this.findPopularGames();
     }
 
@@ -26,7 +25,7 @@ export default class App extends React.Component {
                 limit 50;`
             });
             this.setState({ loading: false, games: response.data });
-            console.log(this.state);
+            // console.log(this.state);
         } catch (error) {
             console.log(error);
         }
@@ -41,7 +40,7 @@ export default class App extends React.Component {
                 limit 50; sort rating desc; where rating >= 88 & rating_count >= 300;`
             });
             this.setState({ loading: false, games: response.data });
-            console.log(this.state);
+            // console.log(this.state);
         } catch (error) {
             console.log(error);
         }
@@ -58,7 +57,12 @@ export default class App extends React.Component {
                     <Route
                         path="/"
                         exact
-                        render={props => <GameCardList games={this.state.games} />}
+                        render={props => (
+                            <GameCardList
+                                games={this.state.games}
+                                loading={this.state.loading}
+                            />
+                        )}
                     />
                     <Route path="/games/:id" component={GameDetail} />
 
