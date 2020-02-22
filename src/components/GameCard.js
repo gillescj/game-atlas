@@ -14,51 +14,6 @@ const GameCard = ({ game }) => {
         </Link>
     );
 
-    // let renderedScreenshot;
-    // if (game.screenshots) {
-    //     const screenshotId = game.screenshots[0].image_id;
-    //     const screenshotSize = 'screenshot_big';
-    //     const screenshotURL = `https://images.igdb.com/igdb/image/upload/t_${screenshotSize}/${screenshotId}.jpg`;
-
-    //     renderedScreenshot = <img src={screenshotURL} alt={`${game.name} Gameplay`} />;
-    // } else {
-    //     renderedScreenshot = null;
-    // }
-
-    // let renderedGenres;
-
-    // if (game.genres) {
-    //     renderedGenres = game.genres.map(genre => {
-    //         return <div key={genre.id}>{genre.name}</div>;
-    //     });
-    // } else {
-    //     renderedGenres = null;
-    // }
-
-    // const months = [
-    //     'January',
-    //     'February',
-    //     'March',
-    //     'April',
-    //     'May',
-    //     'June',
-    //     'July',
-    //     'August',
-    //     'Septemper',
-    //     'October',
-    //     'November',
-    //     'December'
-    // ];
-
-    // let releaseDateString;
-    // if (game.first_release_date) {
-    //     const releaseDate = new Date(game.first_release_date * 1000);
-    //     releaseDateString = `${releaseDate.getDate()} ${months[releaseDate.getMonth()]}
-    //     ${releaseDate.getFullYear()}`;
-    // } else {
-    //     releaseDateString = 'Unknown';
-    // }
-
     const renderedGamePopup = (
         <Popup
             trigger={<div className="game-card">{gameCard}</div>}

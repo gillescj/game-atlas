@@ -1,7 +1,7 @@
 import '../styles/App.scss';
 
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { HashRouter, BrowserRouter, Route } from 'react-router-dom';
 import igdb from '../apis/igdb';
 import Header from './Header';
 import GameCardList from './GameCardList';
@@ -50,7 +50,7 @@ export default class App extends React.Component {
     render() {
         return (
             <div className="container">
-                <BrowserRouter>
+                <HashRouter>
                     <Header
                         onFormSubmit={this.onFormSubmit}
                         loading={this.state.loading}
@@ -63,7 +63,7 @@ export default class App extends React.Component {
                     <Route path="/games/:id" component={GameDetail} />
 
                     <Footer />
-                </BrowserRouter>
+                </HashRouter>
             </div>
         );
     }
