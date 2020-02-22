@@ -1,0 +1,38 @@
+.game-detail {
+    display: grid;
+    grid-gap: 1rem;
+    padding: 1rem;
+    color: white;
+    overflow-y: auto;
+    .game-modal-top-info {
+        display: grid;
+        grid-gap: 0.5rem;
+        justify-items: center;
+        align-items: center;
+        grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+        .genres {
+            display: grid;
+            justify-items: center;
+        }
+    }
+    header {
+        display: grid;
+        h1 {
+            text-align: center;
+        }
+        .close {
+            font-size: 3rem;
+            padding-right: 1rem;
+            margin: 0;
+            text-align: end;
+            cursor: pointer;
+        }
+    }
+    .screenshot {
+        display: grid;
+        justify-content: center;
+        img {
+            max-width: 100%;
+        }
+    }
+}

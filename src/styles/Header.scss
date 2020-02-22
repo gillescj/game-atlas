@@ -4,9 +4,15 @@
     color: white;
     display: grid;
     justify-content: center;
-    .title {
-        justify-self: center;
+    a {
+        text-decoration: none;
+        color: white;
+        .title {
+            text-align: center;
+            font-size: 3rem;
+        }
     }
+
     .search-form-container {
         justify-self: center;
         .search input {

@@ -14,5 +14,3 @@ Within root:
 npm install
 npm run start
 ```
-
-Or download dist and open index.html.
