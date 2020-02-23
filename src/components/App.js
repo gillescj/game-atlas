@@ -21,7 +21,7 @@ export default class App extends React.Component {
             this.setState({ loading: true });
             const response = await igdb('games', {
                 method: 'POST',
-                data: `search "${query}"; fields name, rating, popularity, cover.*, screenshots.*, genres.name, first_release_date, summary;
+                data: `search "${query}"; fields name, rating, popularity, cover.*, screenshots.*, artworks.*, genres.name, first_release_date, summary;
                 limit 50;`
             });
             this.setState({ loading: false, games: response.data });
@@ -50,18 +50,20 @@ export default class App extends React.Component {
         return (
             <div className="container">
                 <HashRouter>
-                    <Header
-                        onFormSubmit={this.onFormSubmit}
-                        loading={this.state.loading}
-                    />
                     <Route
                         path="/"
                         exact
                         render={props => (
-                            <GameCardList
-                                games={this.state.games}
-                                loading={this.state.loading}
-                            />
+                            <>
+                                <Header
+                                    onFormSubmit={this.onFormSubmit}
+                                    loading={this.state.loading}
+                                />
+                                <GameCardList
+                                    games={this.state.games}
+                                    loading={this.state.loading}
+                                />
+                            </>
                         )}
                     />
                     <Route path="/games/:id" component={GameDetail} />

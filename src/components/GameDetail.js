@@ -30,7 +30,7 @@ class GameDetail extends React.Component {
             this.setState({ loading: true });
             const response = await igdb('games', {
                 method: 'POST',
-                data: `fields name, rating, popularity, cover.*, screenshots.*, genres.name, first_release_date, summary;
+                data: `fields name, rating, popularity, cover.*, screenshots.*, artworks.*, videos.video_id, genres.name, first_release_date, summary;
                 where id=${gameId};`
             });
             this.setState({ game: response.data[0], loading: false });
@@ -42,12 +42,13 @@ class GameDetail extends React.Component {
     renderGameDetail = game => {
         let renderedScreenshot;
         if (game.screenshots) {
-            const screenshotId = game.screenshots[0].image_id;
-            const screenshotSize = 'screenshot_big';
+            const screenshotIndex = Math.floor(Math.random() * game.screenshots.length);
+            const screenshotId = game.screenshots[screenshotIndex].image_id;
+            const screenshotSize = '720p';
             const screenshotURL = `https://images.igdb.com/igdb/image/upload/t_${screenshotSize}/${screenshotId}.jpg`;
 
             renderedScreenshot = (
-                <img src={screenshotURL} alt={`${game.name} Gameplay`} />
+                <img src={screenshotURL} alt={`${game.name} Screenshot`} />
             );
         } else {
             renderedScreenshot = null;
@@ -56,22 +57,90 @@ class GameDetail extends React.Component {
         let renderedGenres;
 
         if (game.genres) {
-            renderedGenres = game.genres.map(genre => {
-                return <div key={genre.id}>{genre.name}</div>;
+            const genresList = game.genres.map(genre => {
+                return <li key={genre.id}>{genre.name}</li>;
             });
+            renderedGenres = (
+                <>
+                    <h1>Genre</h1>
+                    <ul>{genresList}</ul>
+                </>
+            );
         } else {
             renderedGenres = null;
         }
 
-        let releaseDateString;
+        let renderedRating;
+        if (game.rating) {
+            renderedRating = (
+                <>
+                    <h1>Rating</h1>
+                    <h2>{Math.round(game.rating, 0)}</h2>
+                </>
+            );
+        } else {
+            renderedRating = null;
+        }
+
+        let renderedReleaseDate;
         if (game.first_release_date) {
             const releaseDate = new Date(game.first_release_date * 1000);
-            releaseDateString = `${releaseDate.getDate()} ${
+            const releaseDateString = `${releaseDate.getDate()} ${
                 this.months[releaseDate.getMonth()]
-            }
-        ${releaseDate.getFullYear()}`;
+            } ${releaseDate.getFullYear()}`;
+
+            renderedReleaseDate = (
+                <>
+                    <h1>Release Date</h1>
+                    <h2>{releaseDateString}</h2>
+                </>
+            );
         } else {
-            releaseDateString = 'Unknown';
+            renderedReleaseDate = null;
+        }
+
+        let renderedArtwork;
+        if (game.artworks) {
+            const artworkSize = 'screenshot_med';
+            const artworkList = game.artworks.slice(0, 6).map(artwork => {
+                const artworkURL = `https://images.igdb.com/igdb/image/upload/t_${artworkSize}/${artwork.image_id}.jpg`;
+                return (
+                    <img
+                        key={artwork.image_id}
+                        src={artworkURL}
+                        alt={`${game.name} Artwork`}
+                    />
+                );
+            });
+
+            renderedArtwork = (
+                <>
+                    <h1>Artwork</h1>
+                    <div className="artwork-list">{artworkList}</div>
+                </>
+            );
+        }
+
+        let renderedVideos;
+        if (game.videos) {
+            const videoList = game.videos.slice(0, 4).map(video => {
+                const videoSrc = `https://www.youtube.com/embed/${video.video_id}`;
+                return (
+                    <iframe
+                        key={video.video_id}
+                        title="video player"
+                        src={videoSrc}
+                    ></iframe>
+                );
+            });
+            renderedVideos = (
+                <>
+                    <h1>Videos</h1>
+                    <div className="video-list">{videoList}</div>
+                </>
+            );
+        } else {
+            renderedVideos = null;
         }
 
         return (
@@ -79,15 +148,16 @@ class GameDetail extends React.Component {
                 <header>
                     <h1>{game.name}</h1>
                 </header>
-                <div className="game-modal-top-info">
-                    <div className="genres">{renderedGenres}</div>
-                    <div className="rating">
-                        Rating: {game.rating ? Math.round(game.rating, 0) : '0'}
-                    </div>
-                    <div className="release-date">Released: {releaseDateString}</div>
-                </div>
-                <p className="summary">{game.summary}</p>
                 <div className="screenshot">{renderedScreenshot}</div>
+                <div className="summary">
+                    <h1>Summary</h1>
+                    <p className="summary">{game.summary}</p>
+                </div>
+                <div className="genres">{renderedGenres}</div>
+                <div className="rating">{renderedRating}</div>
+                <div className="release-date">{renderedReleaseDate}</div>
+                <div className="artwork">{renderedArtwork}</div>
+                <div className="videos">{renderedVideos}</div>
             </>
         );
     };
