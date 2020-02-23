@@ -1,17 +1,18 @@
 .main-header {
-    background: #031634;
+    background: #e84a5f;
     background-image: url(../assests/images/gamepad-white.png);
     background-repeat: repeat;
     padding: 4rem 0;
-    color: white;
+    color: rgb(29, 31, 32);
     display: grid;
     justify-content: center;
     a {
         text-decoration: none;
-        color: white;
+        color: black;
         .title {
             text-align: center;
             font-size: 3rem;
+            font-weight: 800;
         }
     }
 
