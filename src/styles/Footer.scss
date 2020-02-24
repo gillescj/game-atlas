@@ -1,11 +1,12 @@
 .main-footer {
-    background: #031634;
-    background-image: url(../assests/images/gamepad-white.png);
+    background: hsl(0, 0%, 11%);
+    background-image: url(../assets/images/gamepad-white.png);
     background-repeat: repeat;
     padding: 2rem;
     color: white;
     display: grid;
     justify-content: end;
+    max-height: 10rem;
     .attribution a {
         color: white;
     }

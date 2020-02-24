@@ -1,7 +1,7 @@
 import '../styles/App.scss';
 
 import React from 'react';
-import { HashRouter, Route } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import igdb from '../apis/igdb';
 import Header from './Header';
 import GameCardList from './GameCardList';
@@ -50,24 +50,25 @@ export default class App extends React.Component {
         return (
             <div className="container">
                 <HashRouter>
-                    <Route
-                        path="/"
-                        exact
-                        render={props => (
-                            <>
-                                <Header
-                                    onFormSubmit={this.onFormSubmit}
-                                    loading={this.state.loading}
-                                />
-                                <GameCardList
-                                    games={this.state.games}
-                                    loading={this.state.loading}
-                                />
-                            </>
-                        )}
-                    />
-                    <Route path="/games/:id" component={GameDetail} />
-
+                    <Switch>
+                        <Route
+                            path="/"
+                            exact
+                            render={props => (
+                                <>
+                                    <Header
+                                        onFormSubmit={this.onFormSubmit}
+                                        loading={this.state.loading}
+                                    />
+                                    <GameCardList
+                                        games={this.state.games}
+                                        loading={this.state.loading}
+                                    />
+                                </>
+                            )}
+                        />
+                        <Route path="/games/:id" component={GameDetail} />
+                    </Switch>
                     <Footer />
                 </HashRouter>
             </div>

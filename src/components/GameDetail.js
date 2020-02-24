@@ -1,7 +1,9 @@
 import '../styles/GameDetail.scss';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import igdb from '../apis/igdb';
 import Loader from './Loader';
+import { ReactComponent as BackButton } from '../assets/svgs/back-button.svg';
 
 class GameDetail extends React.Component {
     state = { game: {}, loading: false };
@@ -75,7 +77,7 @@ class GameDetail extends React.Component {
             renderedRating = (
                 <>
                     <h1>Rating</h1>
-                    <h2>{Math.round(game.rating, 0)}</h2>
+                    <h3>{Math.round(game.rating, 0)}</h3>
                 </>
             );
         } else {
@@ -92,7 +94,7 @@ class GameDetail extends React.Component {
             renderedReleaseDate = (
                 <>
                     <h1>Release Date</h1>
-                    <h2>{releaseDateString}</h2>
+                    <h3>{releaseDateString}</h3>
                 </>
             );
         } else {
@@ -146,6 +148,9 @@ class GameDetail extends React.Component {
         return (
             <>
                 <header>
+                    <Link to="/" className="back-button">
+                        <BackButton />
+                    </Link>
                     <h1>{game.name}</h1>
                 </header>
                 <div className="screenshot">{renderedScreenshot}</div>
