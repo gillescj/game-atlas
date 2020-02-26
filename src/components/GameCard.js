@@ -24,20 +24,6 @@ const GameCard = ({ game }) => {
         </Link>
     );
 
-    // const renderedGamePopup = (
-    //     <Popup
-    //         trigger={<div className="game-card">{gameCard}</div>}
-    //         position="top center"
-    //         on="hover"
-    //         repositionOnResize={true}
-    //     >
-    //         <div>
-    //             <h3>{game.name}</h3>
-    //             <h2>{game.rating ? Math.round(game.rating, 0) : null}</h2>
-    //         </div>
-    //     </Popup>
-    // );
-
     const renderedGamePopup = <div className="game-card">{gameCard}</div>;
 
     return <div className="game-card-container">{renderedGamePopup}</div>;

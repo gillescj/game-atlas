@@ -2,7 +2,7 @@
     background: hsl(0, 0%, 11%);
     background-image: url(../assets/images/gamepad-white.png);
     background-repeat: repeat;
-    padding: 4rem 0;
+    padding: 2rem 0;
     color: rgb(29, 31, 32);
     display: grid;
     justify-content: center;
@@ -15,12 +15,15 @@
             font-weight: 800;
         }
     }
-
-    .search-form-container {
+    .change-search-type {
+        text-decoration: none;
+        border: none;
+        border-radius: 0.5rem;
+        margin: 0.5rem;
+        padding: 1rem 2rem;
         justify-self: center;
-        .search input {
-            padding: 0.5rem;
-            font-size: 1.2rem;
-        }
+        background: #bd1550;
+        font-size: 1.2rem;
+        color: white;
     }
 }

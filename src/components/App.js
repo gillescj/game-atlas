@@ -9,11 +9,17 @@ import Footer from './Footer';
 import GameDetail from './GameDetail';
 
 export default class App extends React.Component {
-    state = { games: [], loading: false };
+    state = { games: [], searchType: 'query', loading: false };
 
     componentDidMount() {
         this.findPopularGames();
     }
+
+    onSearchTypeChange = () => {
+        this.setState(prevState => ({
+            searchType: prevState.searchType === 'query' ? 'genreSelect' : 'query'
+        }));
+    };
 
     onFormSubmit = async query => {
         if (!query) return;
@@ -21,11 +27,12 @@ export default class App extends React.Component {
             this.setState({ loading: true });
             const response = await igdb('games', {
                 method: 'POST',
-                data: `search "${query}"; fields name, rating, popularity, cover.*, screenshots.*, artworks.*, genres.name, first_release_date, summary;
-                limit 50;`
+                data: `search "${query}"; 
+                fields name, rating, cover.*, genres.*;
+                limit 40;
+                where rating >= 0 & rating_count >= 0;`
             });
             this.setState({ loading: false, games: response.data });
-            // console.log(this.state);
         } catch (error) {
             console.log(error);
         }
@@ -36,11 +43,28 @@ export default class App extends React.Component {
             this.setState({ loading: true });
             const response = await igdb('games', {
                 method: 'POST',
-                data: `fields name, rating, popularity, cover.*, screenshots.*, genres.name, first_release_date, summary;
-                limit 50; sort rating desc; where rating >= 88 & rating_count >= 300;`
+                data: `fields name, rating, cover.*;
+                limit 40;
+                sort rating desc;
+                where rating >= 88 & rating_count >= 200;`
             });
             this.setState({ loading: false, games: response.data });
-            // console.log(this.state);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    findGenre = async genreId => {
+        try {
+            this.setState({ loading: true });
+            const response = await igdb('games', {
+                method: 'POST',
+                data: `fields name, rating, cover.*;
+                limit 40;
+                sort rating desc;
+                where genres = (${genreId}) & rating_count >= 80;`
+            });
+            this.setState({ loading: false, games: response.data });
         } catch (error) {
             console.log(error);
         }
@@ -59,6 +83,10 @@ export default class App extends React.Component {
                                     <Header
                                         onFormSubmit={this.onFormSubmit}
                                         loading={this.state.loading}
+                                        findPopularGames={this.findPopularGames}
+                                        findGenre={this.findGenre}
+                                        searchType={this.state.searchType}
+                                        onSearchTypeChange={this.onSearchTypeChange}
                                     />
                                     <GameCardList
                                         games={this.state.games}
