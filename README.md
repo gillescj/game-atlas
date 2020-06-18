@@ -2,7 +2,7 @@
 
 Video game search and showcase site using React and Sass.
 
-[Game Atlas](https://projects2.colingillespie.xyz/game-atlas/)
+[Game Atlas](https://game-atlas.colingillespie.dev/)
 
 API used: [IGDB API v3](https://api.igdb.com/)
 
