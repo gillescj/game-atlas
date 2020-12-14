@@ -20,20 +20,23 @@ class GameDetail extends React.Component {
         'Septemper',
         'October',
         'November',
-        'December'
+        'December',
     ];
 
     componentDidMount() {
         this.searchGameId(this.props.match.params.id);
     }
 
-    searchGameId = async gameId => {
+    searchGameId = async (gameId) => {
         try {
             this.setState({ loading: true });
             const response = await igdb('games', {
                 method: 'POST',
-                data: `fields name, rating, popularity, cover.*, screenshots.*, artworks.*, videos.video_id, genres.name, first_release_date, summary;
-                where id=${gameId};`
+                data: `fields name, rating, cover.*, screenshots.*, artworks.*, videos.video_id, genres.name, first_release_date, summary;
+                where id=${gameId};`,
+                headers: {
+                    Authorization: `Bearer ${this.props.access_token}`,
+                },
             });
             this.setState({ game: response.data[0], loading: false });
         } catch (error) {
@@ -41,7 +44,7 @@ class GameDetail extends React.Component {
         }
     };
 
-    renderGameDetail = game => {
+    renderGameDetail = (game) => {
         let renderedScreenshot;
         if (game.screenshots) {
             const screenshotIndex = Math.floor(Math.random() * game.screenshots.length);
@@ -59,7 +62,7 @@ class GameDetail extends React.Component {
         let renderedGenres;
 
         if (game.genres) {
-            const genresList = game.genres.map(genre => {
+            const genresList = game.genres.map((genre) => {
                 return <li key={genre.id}>{genre.name}</li>;
             });
             renderedGenres = (
@@ -104,7 +107,7 @@ class GameDetail extends React.Component {
         let renderedArtwork;
         if (game.artworks) {
             const artworkSize = 'screenshot_med';
-            const artworkList = game.artworks.slice(0, 6).map(artwork => {
+            const artworkList = game.artworks.slice(0, 6).map((artwork) => {
                 const artworkURL = `https://images.igdb.com/igdb/image/upload/t_${artworkSize}/${artwork.image_id}.jpg`;
                 return (
                     <img
@@ -125,7 +128,7 @@ class GameDetail extends React.Component {
 
         let renderedVideos;
         if (game.videos) {
-            const videoList = game.videos.slice(0, 4).map(video => {
+            const videoList = game.videos.slice(0, 4).map((video) => {
                 const videoSrc = `https://www.youtube.com/embed/${video.video_id}`;
                 return (
                     <iframe
