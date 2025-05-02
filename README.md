@@ -1,8 +1,9 @@
 # Game Atlas
 
-Video game search and showcase site using React and Sass.
+> [!NOTE]  
+> This project is archived
 
-[Live Site Here](https://game-atlas.colingillespie.dev/)
+Video game search and showcase site using React and Sass.
 
 API used: [IGDB API v3](https://api.igdb.com/)
 
